@@ -13,7 +13,7 @@ import {
 //
 // TODO (Auth): protect this route. Read the session here
 // (auth.api.getSession) and redirect to /login if there's none, then pass the
-// signed-in user to <AppSidebar user={...} /> instead of its hardcoded one.
+// signed-in user to <AppSidebar user={...} /> (it falls back to a demo user).
 export default function DashboardLayout({
   children,
 }: {

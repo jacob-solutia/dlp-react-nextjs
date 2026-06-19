@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "./db";
 import { invoices, customers } from "./schema";
+import { requireSession } from "./session";
 
 export type FormState = {
   success?: boolean;
@@ -22,7 +23,7 @@ const invoiceFields = {
   status: z.enum(["pending", "paid"]),
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- you'll use this in createInvoice (Step 9)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- you'll use this in createInvoice
 const createInvoiceSchema = z.object(invoiceFields);
 const updateInvoiceSchema = z.object({
   ...invoiceFields,
@@ -40,23 +41,22 @@ const updateCustomerSchema = createCustomerSchema.extend({
 
 // TODO (Server Actions): implement createInvoice.
 //  1. Accept (prevState: FormState, formData: FormData).
-//  2. Validate with createInvoiceSchema (see updateInvoice below for the pattern,
+//  2. Call requireSession() first (like the actions below).
+//  3. Validate with createInvoiceSchema (see updateInvoice for the pattern,
 //     including how field errors are returned via z.flattenError).
-//  3. Compute the next sequential invoice number, then insert the invoice
+//  4. Compute the next sequential invoice number, then insert the invoice
 //     (amount is stored in cents) with today's date.
-//  4. revalidatePath the affected routes and return { success: true }.
+//  5. revalidatePath the affected routes and return { success: true }.
 // Docs: https://nextjs.org/docs/app/getting-started/updating-data
-//
-// TODO (Auth): once requireSession exists, call it at the top of every
-// action below so mutations can't be invoked without a session.
 export async function createInvoice(): Promise<FormState> {
-  return { error: "Not implemented yet — this is your Step 9 task." };
+  return { error: "Not implemented yet — implement this in the Server Actions step." };
 }
 
 export async function updateInvoice(
   _prev: FormState,
   formData: FormData
 ): Promise<FormState> {
+  await requireSession();
   const parsed = updateInvoiceSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return { fieldErrors: z.flattenError(parsed.error).fieldErrors };
@@ -83,6 +83,7 @@ export async function createCustomer(
   _prev: FormState,
   formData: FormData
 ): Promise<FormState> {
+  await requireSession();
   const parsed = createCustomerSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return { fieldErrors: z.flattenError(parsed.error).fieldErrors };
@@ -99,6 +100,7 @@ export async function updateCustomer(
   _prev: FormState,
   formData: FormData
 ): Promise<FormState> {
+  await requireSession();
   const parsed = updateCustomerSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return { fieldErrors: z.flattenError(parsed.error).fieldErrors };
