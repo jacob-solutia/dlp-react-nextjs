@@ -1,10 +1,5 @@
 "use client"
 
-import * as React from "react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-
-import { signOut } from "@/lib/auth-client"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,40 +19,25 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { UnfoldMoreIcon, LogoutIcon } from "@hugeicons/core-free-icons"
 import { ModeToggle } from "@/components/mode-toggle"
 
-// Generated avatar from the user's name. The host must be allowlisted in
-// next.config.ts under images.remotePatterns for next/image to load it.
-function avatarUrl(name: string) {
-  return `https://api.dicebear.com/9.x/initials/png?seed=${encodeURIComponent(name)}`
-}
-
-// next/image avatar with a fallback to initials if the image fails to load.
-function UserAvatar({ name, src }: { name: string; src: string }) {
-  const [failed, setFailed] = React.useState(false)
-  const initials =
+function initialsOf(name: string) {
+  return (
     name
       .split(" ")
       .map((part) => part[0])
       .join("")
       .slice(0, 2)
       .toUpperCase() || "U"
+  )
+}
 
-  if (failed) {
-    return (
-      <span className="bg-muted text-muted-foreground flex size-8 shrink-0 items-center justify-center rounded-lg text-sm">
-        {initials}
-      </span>
-    )
-  }
-
+// TODO (Step 11 — next/image): replace this initials box with a generated avatar
+// rendered through next/image (and allowlist the host in next.config.ts).
+// Docs: https://nextjs.org/docs/app/api-reference/components/image
+function UserAvatar({ name }: { name: string }) {
   return (
-    <Image
-      src={src}
-      alt={name}
-      width={32}
-      height={32}
-      onError={() => setFailed(true)}
-      className="size-8 shrink-0 rounded-lg object-cover"
-    />
+    <span className="bg-muted text-muted-foreground flex size-8 shrink-0 items-center justify-center rounded-lg text-sm">
+      {initialsOf(name)}
+    </span>
   )
 }
 
@@ -71,14 +51,6 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
-  const router = useRouter()
-  const src = user.avatar || avatarUrl(user.name)
-
-  async function handleSignOut() {
-    await signOut()
-    router.push("/login")
-    router.refresh()
-  }
 
   return (
     <SidebarMenu>
@@ -89,7 +61,7 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <UserAvatar name={user.name} src={src} />
+              <UserAvatar name={user.name} />
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
@@ -105,7 +77,7 @@ export function NavUser({
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <UserAvatar name={user.name} src={src} />
+                <UserAvatar name={user.name} />
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
                   <span className="truncate text-xs">{user.email}</span>
@@ -117,7 +89,9 @@ export function NavUser({
               <ModeToggle />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={handleSignOut}>
+            {/* TODO (Step 12 — Auth): wire this to signOut() from
+                "@/lib/auth-client", then redirect to /login. */}
+            <DropdownMenuItem>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} />
               Log out
             </DropdownMenuItem>

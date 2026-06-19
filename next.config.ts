@@ -1,11 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // next/image only optimizes remote images from hosts you allowlist here.
-  // We use DiceBear to generate an avatar from the user's name.
-  images: {
-    remotePatterns: [{ protocol: "https", hostname: "api.dicebear.com" }],
-  },
+  // TODO (Step 11 — next/image): to load remote images (e.g. a generated avatar)
+  // through next/image, allowlist their host here under images.remotePatterns.
+  // Docs: https://nextjs.org/docs/app/api-reference/components/image#remotepatterns
 };
 
 export default nextConfig;

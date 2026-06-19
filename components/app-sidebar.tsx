@@ -1,8 +1,4 @@
-"use client"
-
 import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 
 import { NavUser } from "@/components/nav-user"
 import {
@@ -31,28 +27,28 @@ const navItems = [
   { title: "Customers", url: "/dashboard/customers", icon: UserMultipleIcon },
 ]
 
-type SidebarUser = {
-  name: string
-  email: string
-  avatar: string
+// TODO (Step 12 — Auth): replace this with the signed-in user, passed down from
+// the session you read in the dashboard layout.
+const user = {
+  name: "Demo User",
+  email: "demo@solutia.test",
+  avatar: "",
 }
 
-export function AppSidebar({
-  user,
-  ...props
-}: React.ComponentProps<typeof Sidebar> & { user: SidebarUser }) {
-  const pathname = usePathname()
-
-  const isActive = (url: string) =>
-    url === "/dashboard" ? pathname === url : pathname.startsWith(url)
-
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  // TODO (Step 3 — Navigation): These use plain <a> tags, so every click does a
+  // full page reload. Swap them for <Link> from next/link, add "use client", and
+  // highlight the active item with the usePathname() hook (SidebarMenuButton
+  // takes an `isActive` prop).
+  // Docs: https://nextjs.org/docs/app/api-reference/components/link
+  //       https://nextjs.org/docs/app/api-reference/functions/use-pathname
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/dashboard">
+              <a href="/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <HugeiconsIcon icon={Building01Icon} strokeWidth={2} />
                 </div>
@@ -60,7 +56,7 @@ export function AppSidebar({
                   <span className="truncate font-semibold">Solutia</span>
                   <span className="truncate text-xs">Invoices App</span>
                 </div>
-              </Link>
+              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -71,15 +67,11 @@ export function AppSidebar({
           <SidebarMenu>
             {navItems.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  asChild
-                  tooltip={item.title}
-                  isActive={isActive(item.url)}
-                >
-                  <Link href={item.url}>
+                <SidebarMenuButton asChild tooltip={item.title}>
+                  <a href={item.url}>
                     <HugeiconsIcon icon={item.icon} strokeWidth={2} />
                     <span>{item.title}</span>
-                  </Link>
+                  </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
