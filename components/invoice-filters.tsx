@@ -1,6 +1,6 @@
 "use client";
 
-// TODO (Step 6 — Search): build URL-driven filters here. Read and update the
+// TODO (Search): build URL-driven filters here. Read and update the
 // ?q= and ?status= query params with useSearchParams + useRouter + usePathname
 // (debounce the search input). The invoices page reads these on the server and
 // filters the query, so a filtered view is shareable.

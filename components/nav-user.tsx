@@ -30,7 +30,7 @@ function initialsOf(name: string) {
   )
 }
 
-// TODO (Step 8 — next/image): replace this initials box with a generated avatar
+// TODO (next/image): replace this initials box with a generated avatar
 // rendered through next/image (and allowlist the host in next.config.ts).
 // Docs: https://nextjs.org/docs/app/api-reference/components/image
 function UserAvatar({ name }: { name: string }) {
@@ -89,7 +89,7 @@ export function NavUser({
               <ModeToggle />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            {/* TODO (Step 9 — Auth): wire this to signOut() from
+            {/* TODO (Auth): wire this to signOut() from
                 "@/lib/auth-client", then redirect to /login. */}
             <DropdownMenuItem>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} />

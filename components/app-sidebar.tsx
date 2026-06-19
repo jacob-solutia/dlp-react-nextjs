@@ -27,7 +27,7 @@ const navItems = [
   { title: "Customers", url: "/dashboard/customers", icon: UserMultipleIcon },
 ]
 
-// TODO (Step 9 — Auth): replace this with the signed-in user, passed down from
+// TODO (Auth): replace this with the signed-in user, passed down from
 // the session you read in the dashboard layout.
 const user = {
   name: "Demo User",
@@ -36,7 +36,7 @@ const user = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // TODO (Step 2 — Navigation): These use plain <a> tags, so every click does a
+  // TODO (Navigation): These use plain <a> tags, so every click does a
   // full page reload. Swap them for <Link> from next/link, add "use client", and
   // highlight the active item with the usePathname() hook (SidebarMenuButton
   // takes an `isActive` prop).

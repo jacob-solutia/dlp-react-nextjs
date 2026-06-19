@@ -11,7 +11,7 @@ import {
 // Shared shell for every /dashboard/* route — the sidebar + header render once
 // and persist while the page swaps on navigation.
 //
-// TODO (Step 9 — Auth): protect this route. Read the session here
+// TODO (Auth): protect this route. Read the session here
 // (auth.api.getSession) and redirect to /login if there's none, then pass the
 // signed-in user to <AppSidebar user={...} /> instead of its hardcoded one.
 export default function DashboardLayout({

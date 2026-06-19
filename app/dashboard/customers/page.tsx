@@ -1,4 +1,4 @@
-// TODO (Step 3 — Data fetching): Make this an async Server Component, load
+// TODO (Data fetching): Make this an async Server Component, load
 // customers with `getCustomers()` from "@/lib/queries", and render the provided
 // <CustomerTable />.
 // Docs: https://nextjs.org/docs/app/getting-started/fetching-data
