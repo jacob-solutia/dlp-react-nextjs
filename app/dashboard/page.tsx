@@ -1,5 +1,5 @@
-// TODO (Step 4 — Data fetching): Make this an async Server Component, read the
-// invoices/customers from the database (import { db } from "@/lib/db"), and
+// TODO (Step 4 — Data fetching): Make this an async Server Component, load the
+// data with the provided helper (`getDashboardData` from "@/lib/queries"), and
 // render <SectionCards />, <ChartAreaInteractive />, and <InvoiceTable />.
 // Docs: https://nextjs.org/docs/app/getting-started/fetching-data
 export default function DashboardPage() {
