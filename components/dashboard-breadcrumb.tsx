@@ -5,7 +5,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 
-// TODO (Step 3 — Navigation, bonus): make this reactive to the current route
+// TODO (Step 2 — Navigation, bonus): make this reactive to the current route
 // (e.g. "Dashboard / Invoices") with the usePathname() hook instead of always
 // showing "Dashboard".
 // Docs: https://nextjs.org/docs/app/api-reference/functions/use-pathname

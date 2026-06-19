@@ -38,7 +38,7 @@ const updateCustomerSchema = createCustomerSchema.extend({
   id: z.string().min(1, "Missing customer id."),
 });
 
-// TODO (Step 9 — Server Actions): implement createInvoice.
+// TODO (Step 7 — Server Actions): implement createInvoice.
 //  1. Accept (prevState: FormState, formData: FormData).
 //  2. Validate with createInvoiceSchema (see updateInvoice below for the pattern,
 //     including how field errors are returned via z.flattenError).
@@ -47,7 +47,7 @@ const updateCustomerSchema = createCustomerSchema.extend({
 //  4. revalidatePath the affected routes and return { success: true }.
 // Docs: https://nextjs.org/docs/app/getting-started/updating-data
 //
-// TODO (Step 12 — Auth): once requireSession exists, call it at the top of every
+// TODO (Step 9 — Auth): once requireSession exists, call it at the top of every
 // action below so mutations can't be invoked without a session.
 export async function createInvoice(): Promise<FormState> {
   return { error: "Not implemented yet — this is your Step 9 task." };
