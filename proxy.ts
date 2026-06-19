@@ -13,21 +13,18 @@ export function proxy(request: NextRequest) {
   const isAuthed = Boolean(sessionCookie);
   const { pathname } = request.nextUrl;
 
-  // Send signed-out visitors to /login, remembering where they were headed.
+  // Signed-out visitors → /login, remembering where they were headed. We don't
+  // touch /login here on purpose: since this is only a cookie check, a stale
+  // cookie would bounce /login → /dashboard → (layout) → /login forever.
   if (pathname.startsWith("/dashboard") && !isAuthed) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // Keep signed-in users off the login page.
-  if (pathname === "/login" && isAuthed) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
-
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard", "/dashboard/:path*", "/login"],
+  matcher: ["/dashboard", "/dashboard/:path*"],
 };
